@@ -1,18 +1,18 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 
 import './App.css';
 
-function Projection() {
+function Projection(props) {
+    const {myWorker} = props;
     const [value, setValue] = useState(12);
 
     useEffect(() => {
-        const myWorker = new SharedWorker(new URL('./sharedWorker.worker.js', import.meta.url));
-        myWorker.port.onmessage = function (e) {
+        myWorker.current.port.onmessage = function (e) {
             console.log(e.data);
             setValue(e.data);
         };
         setInterval(function () {
-            myWorker.port.postMessage({get: true});
+            myWorker.current.port.postMessage({get: true});
         }, 1000);
     }, []);
     

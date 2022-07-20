@@ -5,9 +5,9 @@ import logo from './logo.svg';
 
 import './App.css';
 
-function App() {
+function App(props) {
+  const {myWorker} = props;
   const [origin, setOrigin] = useState();
-  const myWorker = useRef(new SharedWorker(new URL('./sharedWorker.worker.js', import.meta.url)));
   
   const handleChange = e => {
     myWorker.current.port.postMessage(e.target.value);

@@ -6,7 +6,7 @@ self.addEventListener('connect', function (e) {
     port.addEventListener('message', function (e) {
         if (e.data.get) {
             console.log('get', data, e.data);
-            port.postMessage(data);
+            data && port.postMessage(data);
         }
         else {
             console.log('set', data, e.data);
